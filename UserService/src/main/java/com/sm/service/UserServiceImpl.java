@@ -20,10 +20,20 @@ public class UserServiceImpl implements UserService{
 	public boolean checkUserExists(String email) {
 		UserModel user = new UserModel();
 		user = userRepository.findByEmail(email);
-		if(user.getEmail() == null) {
-			return true;
+		if(user == null) {
+			return false;
 		}
-		return false;
+		return true;
+	}
+
+	@Override
+	public boolean checkLoginUser(String email, String Password) {
+		UserModel user = new UserModel();
+		user = userRepository.findUserByEmailAndPassword(email, Password);
+		if(user == null) {
+			return false;
+		}
+		return true;
 	}
 
 }
